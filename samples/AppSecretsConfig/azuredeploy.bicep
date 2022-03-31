@@ -1,3 +1,28 @@
+/**
+ * // https://docs.microsoft.com/en-us/learn/modules/build-reusable-bicep-templates-parameters/6-exercise-create-use-parameter-files?pivots=powershell
+ * Begin commands to execute this file using Azure CLI with PowerShell
+ * az.cmd group create --location westus2 --resource-group rg_AppConfigKeyVaultDemoFreeConfig0001
+ * Set-AzDefault -ResourceGroupName rg_AppConfigKeyVaultDemoFreeConfig0001
+ * az.cmd deployment group create --resource-group rg_AppConfigKeyVaultDemoFreeConfig0001 --template-file azuredeploy.bicep --parameters  '{ \"parameters\": { \"secret\": { \"reference\": { \"keyVault\": { \"id\": \"/subscriptions/acc26051-92a5-4ed1-a226-64a187bc27db/resourceGroups/aksbicep02/providers/Microsoft.KeyVault/vaults/aksbicep02SH0001\" }, \"secretName\": \"testSecret\" } } } }'
+ * End commands to execute this file using Azure CLI with Powershell
+ * 2
+ * Begin commands to execute this file using Azure CLI with PowerShell
+ * az resource list --resource-group rg_AppConfigKeyVaultDemoFreeConfig0001 --location westus2
+ * echo az.cmd group delete --name rg_AppConfigKeyVaultDemoFreeConfig0001 --yes
+ * az.cmd group delete --name rg_AppConfigKeyVaultDemoFreeConfig0001 --yes
+ * echo all done
+ * End commands to execute this file using Azure CLI with Powershell
+ * 3
+ * Begin commands to execute this file using Azure CLI with PowerShell
+ * az.cmd group create --location westus2 --resource-group rg_AppConfigKeyVaultDemoFreeConfig0001
+ * #az.cmd config set defaults.group=rg_AppConfigKeyVaultDemoFreeConfig0001
+ * Set-AzDefault -ResourceGroupName rg_AppConfigKeyVaultDemoFreeConfig0001
+ * #az.cmd bicep build --file azuredeploy.bicep  --parameters name='AppConfigKeyVaultDemo' secret='stcontosobackup' aadClientSecret='testAadClientSecret'
+ * az.cmd deployment group create --resource-group rg_AppConfigKeyVaultDemoFreeConfig0001 --template-file azuredeploy.bicep --parameters  '@azuredeploy-parameters.json'
+ * #New-AzResourceGroupDeployment -TemplateFile azuredeploy.bicep -TemplateParameterFile azuredeploy-parameters.json
+ * End commands to execute this file using Azure CLI with Powershell
+ *
+ */
 @description('The base name for resources')
 param name string = uniqueString(resourceGroup().id)
 
@@ -16,7 +41,7 @@ param sku string = 'F1'
   'free'
   'standard'
 ])
-param configSku string = 'standard'
+param configSku string = 'free'
 
 resource config 'Microsoft.AppConfiguration/configurationStores@2020-06-01' = {
   name: '${name}config'

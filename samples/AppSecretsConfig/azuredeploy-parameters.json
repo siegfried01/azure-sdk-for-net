@@ -1,0 +1,14 @@
+{// https://docs.microsoft.com/en-us/learn/modules/build-reusable-bicep-templates-parameters/6-exercise-create-use-parameter-files?pivots=powershell
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "secret": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/acc26051-92a5-4ed1-a226-64a187bc27db/resourceGroups/aksbicep02/providers/Microsoft.KeyVault/vaults/aksbicep02SH0001"
+        },
+        "secretName": "testSecret"
+      }
+    }
+  }
+}
